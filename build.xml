@@ -1,0 +1,53 @@
+<project>
+	<target name="clean">
+		<delete dir="build" />
+	</target>
+
+	<path id="files-classpath">
+		<fileset dir="jars">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<path id="run-classpath">
+		<fileset dir="jars">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="build/jar">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="compile">
+		<mkdir dir="build/classes" />
+		<javac srcdir="src" destdir="build/classes">
+			<classpath>
+				<path refid="files-classpath" />
+			</classpath>
+		</javac>
+	</target>
+
+
+	<target name="jar" depends="compile">
+		<mkdir dir="build/jar" />
+		<jar destfile="build/jar/lab4.jar" basedir="build/classes">
+		</jar>
+	</target>
+
+	<target name="run" depends="jar">
+		<java classpathref="run-classpath" classname="lab4.Lab4Main" fork="true">
+		</java>
+	</target>
+
+	<target name="main" depends="clean, run" />
+
+	<target name="javadoc" depends="compile">
+		<mkdir dir="build/docs/" />
+		<javadoc sourcepath="src" destdir="build/docs/" packagenames="*">
+			<fileset dir="src">
+				<include name="*.java" />
+			</fileset>
+			<classpath refid="files-classpath" />
+		</javadoc>
+	</target>
+</project>
