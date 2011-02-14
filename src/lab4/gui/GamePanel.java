@@ -14,17 +14,17 @@ import lab4.data.GameGrid;
  * A panel providing a graphical view of the game board
  */
 
-public class GamePanel extends JPanel implements Observer{
+public class GamePanel extends JPanel implements Observer {
 
 	private final int UNIT_SIZE = 20;
 	private GameGrid grid;
-	
+
 	/**
 	 * The constructor
 	 *
 	 * @param grid The grid that is to be displayed
 	 */
-	public GamePanel(GameGrid grid){
+	public GamePanel(GameGrid grid) {
 		this.grid = grid;
 		grid.addObserver(this);
 		Dimension d = new Dimension(grid.getSize()*UNIT_SIZE+1, grid.getSize()*UNIT_SIZE+1);
@@ -41,15 +41,16 @@ public class GamePanel extends JPanel implements Observer{
 	 * @param y the y coordinates
 	 * @return an integer array containing the [x, y] grid position
 	 */
-	public int[] getGridPosition(int x, int y){}
-	
+	public int[] getGridPosition(int x, int y) {
+	}
+
 	public void update(Observable arg0, Object arg1) {
 		this.repaint();
 	}
-	
-	public void paintComponent(Graphics g){
+
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
+
 	}
-	
+
 }
