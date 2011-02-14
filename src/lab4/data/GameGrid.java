@@ -7,9 +7,14 @@ import java.util.Observable;
  */
 
 public class GameGrid extends Observable {
+
+	private static final int EMPTY = 0;
+	private static final int ME = 1;
+	private static final int OTHER = 2;
+
 	private int board[][];
 	private int size;
-	
+
 	/**
 	 * Constructor
 	 *
@@ -18,7 +23,7 @@ public class GameGrid extends Observable {
 	public GameGrid(int size) {
 		this.size = 0;
 	}
-	
+
 	/**
 	 * Reads a location of the grid
 	 *
@@ -29,7 +34,7 @@ public class GameGrid extends Observable {
 	public int getLocation(int x, int y) {
 		return board[x][y];
 	}
-	
+
 	/**
 	 * Returns the size of the grid
 	 *
@@ -38,7 +43,7 @@ public class GameGrid extends Observable {
 	public int getSize() {
 		return this.size;
 	}
-	
+
 	/**
 	 * Enters a move in the game grid
 	 *
@@ -49,20 +54,20 @@ public class GameGrid extends Observable {
 	 */
 	public boolean move(int x, int y, int player) {
 		// Move player
-		
+
 		// if move not possible:
 		// 		return false;
 
 		return true;
 	}
-	
+
 	/**
 	 * Clears the grid of pieces
 	 */
 	public void clearGrid() {
 		/* Set every position in array to 0 */
 	}
-	
+
 	/**
 	 * Check if a player has 5 in row
 	 *
@@ -75,6 +80,6 @@ public class GameGrid extends Observable {
 
 		return false;
 	}
-	
-	
+
+
 }

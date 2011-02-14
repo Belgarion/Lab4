@@ -14,6 +14,9 @@ import lab4.client.GomokuClient;
 
 public class GomokuGameState extends Observable implements Observer {
 
+	private static final int MY_TURN = 0;
+	private static final int OTHER_TURN = 1;
+
    // Game variables
 	private final int DEFAULT_SIZE = 15;
 	private GameGrid gameGrid;
