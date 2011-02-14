@@ -14,10 +14,10 @@ public class GomokuGUI implements Observer{
 
 	private GomokuClient client;
 	private GomokuGameState gamestate;
-	
+
 	/**
 	 * The constructor
-	 * 
+	 *
 	 * @param g   The game state that the GUI will visualize
 	 * @param c   The client that is responsible for the communication
 	 */
@@ -26,13 +26,13 @@ public class GomokuGUI implements Observer{
 		this.gamestate = g;
 		client.addObserver(this);
 		gamestate.addObserver(this);
-		
-		
+
+
 	}
-	
-	
+
+
 	public void update(Observable arg0, Object arg1) {
-		
+
 		// Update the buttons if the connection status has changed
 		if(arg0 == client){
 			if(client.getConnectionStatus() == GomokuClient.UNCONNECTED){
@@ -45,12 +45,12 @@ public class GomokuGUI implements Observer{
 				disconnectButton.setEnabled(true);
 			}
 		}
-		
+
 		// Update the status text if the gamestate has changed
 		if(arg0 == gamestate){
 			messageLabel.setText(gamestate.getMessageString());
 		}
-		
+
 	}
-	
+
 }

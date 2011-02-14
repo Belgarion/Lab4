@@ -11,14 +11,14 @@ public class GameGrid extends Observable{
 	
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param size The width/height of the game grid
 	 */
 	public GameGrid(int size){}
 	
 	/**
 	 * Reads a location of the grid
-	 * 
+	 *
 	 * @param x The x coordinate
 	 * @param y The y coordinate
 	 * @return the value of the specified location
@@ -27,14 +27,14 @@ public class GameGrid extends Observable{
 	
 	/**
 	 * Returns the size of the grid
-	 * 
+	 *
 	 * @return the grid size
 	 */
 	public int getSize(){}
 	
 	/**
 	 * Enters a move in the game grid
-	 * 
+	 *
 	 * @param x the x position
 	 * @param y the y position
 	 * @param player
@@ -49,7 +49,7 @@ public class GameGrid extends Observable{
 	
 	/**
 	 * Check if a player has 5 in row
-	 * 
+	 *
 	 * @param player the player to check for
 	 * @return true if player has 5 in row, false otherwise
 	 */

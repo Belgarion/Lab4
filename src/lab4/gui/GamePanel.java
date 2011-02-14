@@ -21,7 +21,7 @@ public class GamePanel extends JPanel implements Observer{
 	
 	/**
 	 * The constructor
-	 * 
+	 *
 	 * @param grid The grid that is to be displayed
 	 */
 	public GamePanel(GameGrid grid){
@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements Observer{
 	/**
 	 * Returns a grid position given pixel coordinates
 	 * of the panel
-	 * 
+	 *
 	 * @param x the x coordinates
 	 * @param y the y coordinates
 	 * @return an integer array containing the [x, y] grid position
