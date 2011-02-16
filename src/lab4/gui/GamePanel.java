@@ -43,8 +43,8 @@ public class GamePanel extends JPanel implements Observer {
 	 */
 	public int[] getGridPosition(int x, int y) {
 		int gridPos[] = new int[2];
-		gridPos[0] = x;
-		gridPos[1] = y;
+		gridPos[0] = x / UNIT_SIZE;
+		gridPos[1] = y / UNIT_SIZE;
 		return gridPos;
 	}
 
@@ -56,6 +56,18 @@ public class GamePanel extends JPanel implements Observer {
 		super.paintComponent(g);
 		// Make some paintings.
 
+		// Draw cells
+		for (int i = 0; i < grid.getSize(); i++) {
+			for (int j = 0; j < grid.getSize(); j++) {
+				g.drawRect(i*UNIT_SIZE, j*UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
+				if (grid.getLocation(i, j) == GameGrid.ME) {
+					g.drawLine(i*UNIT_SIZE, j*UNIT_SIZE, (i+1)*UNIT_SIZE, (j+1)*UNIT_SIZE);
+					g.drawLine((i+1)*UNIT_SIZE, j*UNIT_SIZE, i*UNIT_SIZE, (j+1)*UNIT_SIZE);
+				} else if (grid.getLocation(i, j) == GameGrid.OTHER) {
+					g.fillOval(i*UNIT_SIZE, j*UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
+				}
+			}
+		}
 	}
 
 }

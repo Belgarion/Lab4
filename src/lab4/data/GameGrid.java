@@ -9,9 +9,9 @@ import java.util.Arrays;
 
 public class GameGrid extends Observable {
 
-	public static final int EMPTY = 1;
-	public static final int ME = 2;
-	public static final int OTHER = 4;
+	public static final int EMPTY = 0;
+	public static final int ME = 1;
+	public static final int OTHER = 2;
 
 	// Number of squares in a row required to win.
 	private static final int INROW = 5;
@@ -26,6 +26,7 @@ public class GameGrid extends Observable {
 	 */
 	public GameGrid(int size) {
 		this.size = size;
+		board = new int[size][size];
 	}
 
 	/**

@@ -9,6 +9,7 @@ import lab4.data.GomokuGameState;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.FlowLayout;
 
 /*
  * The GUI class
@@ -43,10 +44,15 @@ public class GomokuGUI implements Observer {
 		disconnectButton = new JButton("Disconnect");
 
 		JFrame frame = new JFrame("Gomoku");
+		frame.setLayout(new FlowLayout());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-		frame.getContentPane().add(gamePanel);
+		frame.add(gamePanel);
+		frame.getContentPane().add(messageLabel);
+		frame.getContentPane().add(connectButton);
+		frame.getContentPane().add(newGameButton);
+		frame.getContentPane().add(disconnectButton);
 
 
 		frame.pack();
