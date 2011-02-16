@@ -87,10 +87,14 @@ public class GameGrid extends Observable {
 		// I don't like this solution, should be able to solve this in a nicer way.
 		for (int i = 0; i < board.length - INROW; i++) {
 			for (int j = 0; j < board[i].length - INROW; j++) {
+				if (board[i][j] != player) {
+					continue;
+				}
+
 				// Check horizontal
 				boolean match = true;
-				for (int k = i; k < INROW-1; k++) {
-					if (board[k][j] != board[k+1][j]) {
+				for (int k = 0; k < INROW; k++) {
+					if (board[i+k][j] != player) {
 						match = false;
 					}
 				}
@@ -100,8 +104,8 @@ public class GameGrid extends Observable {
 
 				// Check vertical
 				match = true;
-				for (int k = j; k < INROW-1; k++) {
-					if (board[i][k] != board[i][k+1]) {
+				for (int k = 0; k < INROW; k++) {
+					if (board[i][j+k] != player) {
 						match = false;
 					}
 				}
@@ -111,8 +115,8 @@ public class GameGrid extends Observable {
 
 				// Check diagonal southwest
 				match = true;
-				for (int k = i; k < INROW-1; k++) {
-					if (board[k][j] != board[k+1][j]) {
+				for (int k = 0; k < INROW; k++) {
+					if (board[i+k][j+k] != player) {
 						match = false;
 					}
 				}
@@ -121,10 +125,10 @@ public class GameGrid extends Observable {
 				}
 
 				// Check diagonal northwest
-				if (i >= INROW) {
+				if (j >= INROW-1) {
 					match = true;
-					for (int k = i; k < INROW-1; k--) {
-						if (board[i][k] != board[i][k-1]) {
+					for (int k = 0; k < INROW; k++) {
+						if (board[i+k][j-k] != player) {
 							match = false;
 						}
 					}
