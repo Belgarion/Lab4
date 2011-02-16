@@ -35,7 +35,8 @@
 	</target>
 
 	<target name="run" depends="jar">
-		<java classpathref="run-classpath" classname="lab4.Lab4Main" fork="true">
+		<java classpathref="run-classpath" classname="lab4.GomokuMain" fork="true">
+			<arg line="12345" />
 		</java>
 	</target>
 
