@@ -42,6 +42,10 @@ public class GamePanel extends JPanel implements Observer {
 	 * @return an integer array containing the [x, y] grid position
 	 */
 	public int[] getGridPosition(int x, int y) {
+		int gridPos[] = new int[2];
+		gridPos[0] = x;
+		gridPos[1] = y;
+		return gridPos;
 	}
 
 	public void update(Observable arg0, Object arg1) {
@@ -50,6 +54,7 @@ public class GamePanel extends JPanel implements Observer {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		// Make some paintings.
 
 	}
 

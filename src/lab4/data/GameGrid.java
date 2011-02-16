@@ -8,9 +8,10 @@ import java.util.Observable;
 
 public class GameGrid extends Observable {
 
-	private static final int EMPTY = 0;
-	private static final int ME = 1;
-	private static final int OTHER = 2;
+	public static enum CellType { EMPTY, ME, OTHER }
+
+	// Number of squares in a row required to win.
+	private static final int INROW = 5;
 
 	private int board[][];
 	private int size;
@@ -66,6 +67,9 @@ public class GameGrid extends Observable {
 	 */
 	public void clearGrid() {
 		/* Set every position in array to 0 */
+
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -75,7 +79,7 @@ public class GameGrid extends Observable {
 	 * @return true if player has 5 in row, false otherwise
 	 */
 	public boolean isWinner(int player) {
-		// if player has 5 in row:
+		// if player has INROW in row:
 		// 		return true
 
 		return false;

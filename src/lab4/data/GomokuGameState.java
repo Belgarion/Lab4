@@ -14,15 +14,15 @@ import lab4.client.GomokuClient;
 
 public class GomokuGameState extends Observable implements Observer {
 
-	private static final int MY_TURN = 0;
-	private static final int OTHER_TURN = 1;
-
    // Game variables
-	private final int DEFAULT_SIZE = 15;
+	private static final int DEFAULT_SIZE = 15;
 	private GameGrid gameGrid;
 
     //Possible game states
-	private final int NOT_STARTED = 0;
+	private static final int NOT_STARTED = 0;
+	private static final int MY_TURN = 2;
+	private static final int OTHER_TURN = 4;
+	private static final int FINISHED = 8;
 	private int currentState;
 
 	private GomokuClient client;
@@ -49,6 +49,7 @@ public class GomokuGameState extends Observable implements Observer {
 	 * @return the message string
 	 */
 	public String getMessageString() {
+		return message;
 	}
 
 	/**
@@ -57,6 +58,7 @@ public class GomokuGameState extends Observable implements Observer {
 	 * @return the game grid
 	 */
 	public GameGrid getGameGrid() {
+		return gameGrid;
 	}
 
 	/**
@@ -66,6 +68,15 @@ public class GomokuGameState extends Observable implements Observer {
 	 * @param y the y coordinate
 	 */
 	public void move(int x, int y) {
+		// if not gameInProgress: set error message; notify; return
+		// if not my turn: set error message; notify; return
+		// if not cell is empty: set error message; notify; return
+
+		// This is a legal move:
+		// send to other player
+		// set message
+		// check if i won
+		// notify
 	}
 
 	/**
