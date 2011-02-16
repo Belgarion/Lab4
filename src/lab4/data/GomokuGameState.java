@@ -92,8 +92,6 @@ public class GomokuGameState extends Observable implements Observer {
 				currentState = OTHER_TURN;
 			}
 			client.setGameState(this);
-
-		// check if i won
 			
 		} else {
 			message = "Invalid move";
@@ -106,6 +104,15 @@ public class GomokuGameState extends Observable implements Observer {
 	 * Starts a new game with the current client
 	 */
 	public void newGame() {
+		if( currentState == NOT_STARTED){
+			return;
+		}
+		currentState = OTHER_TURN;
+		gameGrid.clearGrid();
+		message = "New game";
+		client.sendNewGameMessage();
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -113,6 +120,11 @@ public class GomokuGameState extends Observable implements Observer {
 	 * game state is changed accordingly
 	 */
 	public void receivedNewGame() {
+		currentState = MY_TURN;
+		gameGrid.clearGrid();
+		message = "New game";
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -120,12 +132,23 @@ public class GomokuGameState extends Observable implements Observer {
 	 * so the game is interrupted
 	 */
 	public void otherGuyLeft() {
+		currentState = FINISHED;
+		gameGrid.clearGrid();
+		message = "The other player left";
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
 	 * The player disconnects from the client
 	 */
 	public void disconnect() {
+		currentState = FINISHED;
+		gameGrid.clearGrid();
+		message = "You left";
+		setChanged();
+		notifyObservers();
+		client.disconnect();
 	}
 
 	/**
@@ -135,6 +158,11 @@ public class GomokuGameState extends Observable implements Observer {
 	 * @param y The y coordinate of the move
 	 */
 	public void receivedMove(int x, int y) {
+		gameGrid.move(x, y, GameGrid.OTHER);
+		currentState = MY_TURN;
+		message = "Your turn";
+		setChanged();
+		notifyObservers();
 	}
 
 	public void update(Observable o, Object arg) {
