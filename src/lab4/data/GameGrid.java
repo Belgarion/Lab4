@@ -89,7 +89,7 @@ public class GameGrid extends Observable {
 				// Check horizontal
 				boolean match = true;
 				for (int k = i; k < INROW-1; k++) {
-					if (board[k][j] != k[k+1][j]) {
+					if (board[k][j] != board[k+1][j]) {
 						match = false;
 					}
 				}
@@ -98,9 +98,9 @@ public class GameGrid extends Observable {
 				}
 
 				// Check vertical
-				boolean match = true;
+				match = true;
 				for (int k = j; k < INROW-1; k++) {
-					if (board[i][k] != k[i][k+1]) {
+					if (board[i][k] != board[i][k+1]) {
 						match = false;
 					}
 				}
@@ -109,9 +109,9 @@ public class GameGrid extends Observable {
 				}
 
 				// Check diagonal southwest
-				boolean match = true;
+				match = true;
 				for (int k = i; k < INROW-1; k++) {
-					if (board[k][j] != k[k+1][j]) {
+					if (board[k][j] != board[k+1][j]) {
 						match = false;
 					}
 				}
@@ -121,9 +121,9 @@ public class GameGrid extends Observable {
 
 				// Check diagonal northwest
 				if (i >= INROW) {
-					boolean match = true;
+					match = true;
 					for (int k = i; k < INROW-1; k--) {
-						if (board[i][k] != k[i][k-1]) {
+						if (board[i][k] != board[i][k-1]) {
 							match = false;
 						}
 					}
