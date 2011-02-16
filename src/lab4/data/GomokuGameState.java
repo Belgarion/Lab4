@@ -68,15 +68,38 @@ public class GomokuGameState extends Observable implements Observer {
 	 * @param y the y coordinate
 	 */
 	public void move(int x, int y) {
-		// if not gameInProgress: set error message; notify; return
-		// if not my turn: set error message; notify; return
-		// if not cell is empty: set error message; notify; return
+		if (currentState != MY_TURN){
+			if (currentState == NOT_STARTED){
+				message = "The game has not been started.";
+			}
+			if (currentState == OTHER_TURN){
+				message = "It is not your turn.";
+			}
+			if (currentState == FINISHED){
+				message = "The game is allready finished.";
+			}
+			setChanged();
+			notifyObservers();
+			return;
+		}
+		if (gameGrid.move(x, y, GameGrid.ME)){
+			client.sendMoveMessage(x, y);
+			if (gameGrid.isWinner(GameGrid.ME)){
+				message = "You won!";
+				currentState = FINISHED;
+			} else {
+				message = "Other players turn";
+				currentState = OTHER_TURN;
+			}
+			client.setGameState(this);
 
-		// This is a legal move:
-		// send to other player
-		// set message
 		// check if i won
-		// notify
+			
+		} else {
+			message = "Invalid move";
+		}
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
