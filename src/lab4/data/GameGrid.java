@@ -84,57 +84,28 @@ public class GameGrid extends Observable {
 	 * @return true if player has 5 in row, false otherwise
 	 */
 	public boolean isWinner(int player) {
-		// I don't like this solution, should be able to solve this in a nicer way.
 		for (int i = 0; i < board.length - INROW; i++) {
 			for (int j = 0; j < board[i].length - INROW; j++) {
 				if (board[i][j] != player) {
+					// Player has no mark here,
+					// continue with next cell.
 					continue;
 				}
 
-				// Check horizontal
-				boolean match = true;
-				for (int k = 0; k < INROW; k++) {
-					if (board[i+k][j] != player) {
-						match = false;
-					}
-				}
-				if (match) {
+				if (checkHorizontal(player, i, j)) {
 					return true;
 				}
 
-				// Check vertical
-				match = true;
-				for (int k = 0; k < INROW; k++) {
-					if (board[i][j+k] != player) {
-						match = false;
-					}
-				}
-				if (match) {
+				if (checkVertical(player, i, j)) {
 					return true;
 				}
 
-				// Check diagonal southwest
-				match = true;
-				for (int k = 0; k < INROW; k++) {
-					if (board[i+k][j+k] != player) {
-						match = false;
-					}
-				}
-				if (match) {
+				if (checkSouthEast(player, i, j)) {
 					return true;
 				}
 
-				// Check diagonal northwest
-				if (j >= INROW-1) {
-					match = true;
-					for (int k = 0; k < INROW; k++) {
-						if (board[i+k][j-k] != player) {
-							match = false;
-						}
-					}
-					if (match) {
-						return true;
-					}
+				if (checkNorthEast(player, i, j)) {
+					return true;
 				}
 			}
 		}
@@ -142,5 +113,71 @@ public class GameGrid extends Observable {
 		return false;
 	}
 
+	/**
+	 * Checks for a match in horizontal direction starting at x, y.
+	 *
+	 * @param player Which player to check for.
+	 * @param x Starting point in x.
+	 * @param y Starting point in y.
+	 * @return True if player has won, false otherwise.
+	 */
+	public boolean checkHorizontal(int player, int x, int y) {
+		for (int i = 0; i < INROW; i++) {
+			if (board[x+i][y] != player) {
+				return false;
+			}
+		}
+		return true;
+	}
 
+	/**
+	 * Checks for a match in vertical direction starting at x, y.
+	 *
+	 * @param player Which player to check for.
+	 * @param x Starting point in x.
+	 * @param y Starting point in y.
+	 * @return True if player has won, false otherwise.
+	 */
+	public boolean checkVertical(int player, int x, int y) {
+		for (int i = 0; i < INROW; i++) {
+			if (board[x][y+i] != player) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Checks for a match in southwest direction starting at x, y.
+	 *
+	 * @param player Which player to check for.
+	 * @param x Starting point in x.
+	 * @param y Starting point in y.
+	 * @return True if player has won, false otherwise.
+	 */
+	public boolean checkSouthEast(int player, int x, int y) {
+		for (int i = 0; i < INROW; i++) {
+			if (board[x+i][y+i] != player) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Checks for a match in northeast direction starting at x, y.
+	 *
+	 * @param player Which player to check for.
+	 * @param x Starting point in x.
+	 * @param y Starting point in y.
+	 * @return True if player has won, false otherwise.
+	 */
+	public boolean checkNorthEast(int player, int x, int y) {
+		for (int i = 0; i < INROW; i++) {
+			if (board[x+i][y-i] != player) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
