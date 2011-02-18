@@ -71,7 +71,9 @@ public class GameGrid extends Observable {
 	 * Clears the grid of pieces
 	 */
 	public void clearGrid() {
-		Arrays.fill(this.board, 0);
+		for (int i = 0; i < this.board.length; i++) {
+			Arrays.fill(this.board[i], 0);
+		}
 
 		setChanged();
 		notifyObservers();
