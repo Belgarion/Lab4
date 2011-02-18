@@ -40,6 +40,8 @@ public class GomokuGameState extends Observable implements Observer {
 		gc.setGameState(this);
 		currentState = NOT_STARTED;
 		gameGrid = new GameGrid(DEFAULT_SIZE);
+
+		currentState = NOT_STARTED;
 	}
 
 
@@ -69,22 +71,23 @@ public class GomokuGameState extends Observable implements Observer {
 	 */
 	public void move(int x, int y) {
 		if (currentState != MY_TURN){
-			if (currentState == NOT_STARTED){
+			if (currentState == NOT_STARTED) {
 				message = "The game has not been started.";
 			}
-			if (currentState == OTHER_TURN){
+			if (currentState == OTHER_TURN) {
 				message = "It is not your turn.";
 			}
-			if (currentState == FINISHED){
+			if (currentState == FINISHED) {
 				message = "The game is allready finished.";
 			}
 			setChanged();
 			notifyObservers();
 			return;
 		}
-		if (gameGrid.move(x, y, GameGrid.ME)){
+
+		if (gameGrid.move(x, y, GameGrid.ME)) {
 			client.sendMoveMessage(x, y);
-			if (gameGrid.isWinner(GameGrid.ME)){
+			if (gameGrid.isWinner(GameGrid.ME)) {
 				message = "You won!";
 				currentState = FINISHED;
 			} else {
@@ -92,10 +95,10 @@ public class GomokuGameState extends Observable implements Observer {
 				currentState = OTHER_TURN;
 			}
 			client.setGameState(this);
-			
 		} else {
 			message = "Invalid move";
 		}
+
 		setChanged();
 		notifyObservers();
 	}
@@ -159,8 +162,13 @@ public class GomokuGameState extends Observable implements Observer {
 	 */
 	public void receivedMove(int x, int y) {
 		gameGrid.move(x, y, GameGrid.OTHER);
-		currentState = MY_TURN;
-		message = "Your turn";
+		if (gameGrid.isWinner(GameGrid.OTHER)) {
+			message = "You lose";
+			currentState = FINISHED;
+		} else {
+			currentState = MY_TURN;
+			message = "Your turn";
+		}
 		setChanged();
 		notifyObservers();
 	}

@@ -84,8 +84,8 @@ public class GameGrid extends Observable {
 	 * @return true if player has 5 in row, false otherwise
 	 */
 	public boolean isWinner(int player) {
-		for (int i = 0; i < board.length - INROW; i++) {
-			for (int j = 0; j < board[i].length - INROW; j++) {
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
 				if (board[i][j] != player) {
 					// Player has no mark here,
 					// continue with next cell.
@@ -122,6 +122,10 @@ public class GameGrid extends Observable {
 	 * @return True if player has won, false otherwise.
 	 */
 	public boolean checkHorizontal(int player, int x, int y) {
+		if (x > board.length - INROW) {
+			return false;
+		}
+
 		for (int i = 0; i < INROW; i++) {
 			if (board[x+i][y] != player) {
 				return false;
@@ -139,6 +143,10 @@ public class GameGrid extends Observable {
 	 * @return True if player has won, false otherwise.
 	 */
 	public boolean checkVertical(int player, int x, int y) {
+		if (y > board[x].length-INROW) {
+			return false;
+		}
+
 		for (int i = 0; i < INROW; i++) {
 			if (board[x][y+i] != player) {
 				return false;
@@ -148,7 +156,7 @@ public class GameGrid extends Observable {
 	}
 
 	/**
-	 * Checks for a match in southwest direction starting at x, y.
+	 * Checks for a match in southeast direction starting at x, y.
 	 *
 	 * @param player Which player to check for.
 	 * @param x Starting point in x.
@@ -156,6 +164,10 @@ public class GameGrid extends Observable {
 	 * @return True if player has won, false otherwise.
 	 */
 	public boolean checkSouthEast(int player, int x, int y) {
+		if (y > board[x].length-INROW || x > board.length-INROW) {
+			return false;
+		}
+
 		for (int i = 0; i < INROW; i++) {
 			if (board[x+i][y+i] != player) {
 				return false;
@@ -173,6 +185,10 @@ public class GameGrid extends Observable {
 	 * @return True if player has won, false otherwise.
 	 */
 	public boolean checkNorthEast(int player, int x, int y) {
+		if (y < INROW-1 || x > board.length-INROW) {
+			return false;
+		}
+
 		for (int i = 0; i < INROW; i++) {
 			if (board[x+i][y-i] != player) {
 				return false;

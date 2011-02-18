@@ -39,6 +39,11 @@
 			<arg line="12345" />
 		</java>
 	</target>
+	<target name="run2" depends="jar">
+		<java classpathref="run-classpath" classname="lab4.GomokuMain" fork="true">
+			<arg line="12346" />
+		</java>
+	</target>
 
 	<target name="main" depends="clean, run" />
 

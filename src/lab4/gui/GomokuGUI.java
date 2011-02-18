@@ -9,7 +9,12 @@ import lab4.data.GomokuGameState;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.SpringLayout;
 import java.awt.FlowLayout;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /*
  * The GUI class
@@ -38,8 +43,26 @@ public class GomokuGUI implements Observer {
 
 
 		gamePanel = new GamePanel(g.getGameGrid());
+		gamePanel.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+				int[] gridPos = gamePanel.getGridPosition(e.getX(), e.getY());
+				gamestate.move(gridPos[0], gridPos[1]);
+			}
+
+			public void mouseExited(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+		});
+
 		messageLabel = new JLabel();
+
 		connectButton = new JButton("Connect");
+		connectButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConnectionWindow cw = new ConnectionWindow(client);
+			}
+		});
 		newGameButton = new JButton("New game");
 		disconnectButton = new JButton("Disconnect");
 
