@@ -3,14 +3,12 @@ import java.util.Observable;
 import java.util.Observer;
 
 import lab4.client.GomokuClient;
-import lab4.data.GameGrid;
 import lab4.data.GomokuGameState;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.SpringLayout;
-import java.awt.FlowLayout;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
@@ -63,13 +61,32 @@ public class GomokuGUI implements Observer {
 				ConnectionWindow cw = new ConnectionWindow(client);
 			}
 		});
+		
 		newGameButton = new JButton("New game");
+		newGameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gamestate.newGame();
+			}
+		});
+		
 		disconnectButton = new JButton("Disconnect");
+		disconnectButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gamestate.disconnect();
+			}
+		});
 
 		JFrame frame = new JFrame("Gomoku");
-		frame.setLayout(new FlowLayout());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		SpringLayout layout = new SpringLayout();
+		frame.setLayout(layout);
+		layout.putConstraint(SpringLayout.NORTH, connectButton, 5,SpringLayout.SOUTH , gamePanel);
+		layout.putConstraint(SpringLayout.NORTH, newGameButton, 5, SpringLayout.SOUTH, gamePanel);
+		layout.putConstraint(SpringLayout.NORTH, disconnectButton, 5, SpringLayout.SOUTH, gamePanel);
+		layout.putConstraint(SpringLayout.WEST, newGameButton, 5, SpringLayout.EAST, connectButton);
+		layout.putConstraint(SpringLayout.WEST, disconnectButton, 5, SpringLayout.EAST, newGameButton);
+		layout.putConstraint(SpringLayout.NORTH, messageLabel, 5, SpringLayout.SOUTH, connectButton);
+		
 
 		frame.add(gamePanel);
 		frame.getContentPane().add(messageLabel);
