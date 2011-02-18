@@ -22,6 +22,7 @@ public class GomokuGUI implements Observer {
 	private GomokuClient client;
 	private GomokuGameState gamestate;
 
+	private JFrame frame;
 	private GamePanel gamePanel;
 	private JLabel messageLabel;
 	private JButton connectButton;
@@ -39,8 +40,22 @@ public class GomokuGUI implements Observer {
 		this.gamestate = g;
 		client.addObserver(this);
 
+		frame = new JFrame("Gomoku");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		gamePanel = new GamePanel(g.getGameGrid());
+		addComponents();
+
+		frame.setLayout(createLayout());
+
+		frame.setLocation(0, 0);
+		frame.setVisible(true);
+		frame.setSize(360, 360);
+
+		gamestate.addObserver(this);
+	}
+
+	private void addComponents() {
+		gamePanel = new GamePanel(gamestate.getGameGrid());
 		gamePanel.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
 				int[] gridPos = gamePanel.getGridPosition(e.getX(), e.getY());
@@ -61,14 +76,14 @@ public class GomokuGUI implements Observer {
 				ConnectionWindow cw = new ConnectionWindow(client);
 			}
 		});
-		
+
 		newGameButton = new JButton("New game");
 		newGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gamestate.newGame();
 			}
 		});
-		
+
 		disconnectButton = new JButton("Disconnect");
 		disconnectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -76,30 +91,24 @@ public class GomokuGUI implements Observer {
 			}
 		});
 
-		JFrame frame = new JFrame("Gomoku");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		SpringLayout layout = new SpringLayout();
-		frame.setLayout(layout);
-		layout.putConstraint(SpringLayout.NORTH, connectButton, 5,SpringLayout.SOUTH , gamePanel);
-		layout.putConstraint(SpringLayout.NORTH, newGameButton, 5, SpringLayout.SOUTH, gamePanel);
-		layout.putConstraint(SpringLayout.NORTH, disconnectButton, 5, SpringLayout.SOUTH, gamePanel);
-		layout.putConstraint(SpringLayout.WEST, newGameButton, 5, SpringLayout.EAST, connectButton);
-		layout.putConstraint(SpringLayout.WEST, disconnectButton, 5, SpringLayout.EAST, newGameButton);
-		layout.putConstraint(SpringLayout.NORTH, messageLabel, 5, SpringLayout.SOUTH, connectButton);
-		
-
 		frame.add(gamePanel);
 		frame.getContentPane().add(messageLabel);
 		frame.getContentPane().add(connectButton);
 		frame.getContentPane().add(newGameButton);
 		frame.getContentPane().add(disconnectButton);
 
+	}
 
-		frame.pack();
-		frame.setLocation(0, 0);
-		frame.setVisible(true);
+	private SpringLayout createLayout() {
+		SpringLayout layout = new SpringLayout();
+		layout.putConstraint(SpringLayout.NORTH, connectButton, 5,SpringLayout.SOUTH, gamePanel);
+		layout.putConstraint(SpringLayout.NORTH, newGameButton, 5, SpringLayout.SOUTH, gamePanel);
+		layout.putConstraint(SpringLayout.NORTH, disconnectButton, 5, SpringLayout.SOUTH, gamePanel);
+		layout.putConstraint(SpringLayout.WEST, newGameButton, 5, SpringLayout.EAST, connectButton);
+		layout.putConstraint(SpringLayout.WEST, disconnectButton, 5, SpringLayout.EAST, newGameButton);
+		layout.putConstraint(SpringLayout.NORTH, messageLabel, 5, SpringLayout.SOUTH, connectButton);
 
-		gamestate.addObserver(this);
+		return layout;
 	}
 
 
