@@ -39,6 +39,7 @@ public class GomokuGUI implements Observer {
 		this.client = c;
 		this.gamestate = g;
 		client.addObserver(this);
+		gamestate.addObserver(this);
 
 		frame = new JFrame("Gomoku");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,9 +50,8 @@ public class GomokuGUI implements Observer {
 
 		frame.setLocation(0, 0);
 		frame.setVisible(true);
-		frame.setSize(360, 360);
+		frame.setSize(370, 370);
 
-		gamestate.addObserver(this);
 	}
 
 	private void addComponents() {
@@ -131,6 +131,8 @@ public class GomokuGUI implements Observer {
 		if (arg0 == gamestate) {
 			messageLabel.setText(gamestate.getMessageString());
 		}
+
+		frame.repaint();
 
 	}
 
