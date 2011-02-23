@@ -54,6 +54,12 @@ public class GomokuGUI implements Observer {
 
 	}
 
+	/**
+	 * addComponens
+	 * @param The function that makes the buttons and mouse-klicks work.
+	 * @param Controls the buttons "Connect", "New game" and "Disconnect".
+	 *
+	 */
 	private void addComponents() {
 		gamePanel = new GamePanel(gamestate.getGameGrid());
 		gamePanel.addMouseListener(new MouseListener() {
@@ -99,6 +105,11 @@ public class GomokuGUI implements Observer {
 
 	}
 
+	/**
+	 * The Layout
+	 * @param Places the buttons and the message label on their places under the grid. 
+	 *
+	 */
 	private SpringLayout createLayout() {
 		SpringLayout layout = new SpringLayout();
 		layout.putConstraint(SpringLayout.NORTH, connectButton, 5,SpringLayout.SOUTH, gamePanel);
