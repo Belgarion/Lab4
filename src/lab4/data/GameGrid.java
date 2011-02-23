@@ -72,7 +72,7 @@ public class GameGrid extends Observable {
 	 */
 	public void clearGrid() {
 		for (int i = 0; i < this.board.length; i++) {
-			Arrays.fill(this.board[i], 0);
+			Arrays.fill(this.board[i], EMPTY);
 		}
 
 		setChanged();
